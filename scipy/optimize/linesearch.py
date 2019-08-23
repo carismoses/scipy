@@ -390,6 +390,7 @@ def scalar_search_wolfe2(phi, derphi, phi0=None,
     alpha0 = 0
     if old_phi0 is not None and derphi0 != 0:
         alpha1 = min(1.0, 1.01*2*(phi0 - old_phi0)/derphi0)
+        alpha1 = alpha1.squeeze()
     else:
         alpha1 = 1.0
 
@@ -564,6 +565,7 @@ def _zoom(a_lo, a_hi, phi_lo, phi_hi, derphi_lo,
         if (i == 0) or (a_j is None) or (a_j > b - cchk) or (a_j < a + cchk):
             qchk = delta2 * dalpha
             a_j = _quadmin(a_lo, phi_lo, derphi_lo, a_hi, phi_hi)
+            a_j = a_j.squeeze()
             if (a_j is None) or (a_j > b-qchk) or (a_j < a+qchk):
                 a_j = a_lo + 0.5*dalpha
 
